@@ -21,10 +21,10 @@ MemoryCache
 
 
 Customer can
-add items to the shopping cart
-delete them from the cart
-submit the order
-print the order
+add items to the shopping cart, 
+delete them from the cart, 
+submit the order, 
+print the order, 
 download order as the text file
 
 to run this application, you has to open folder /sql/ and run that script in your SQL client.
