@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Bondora.Api.Models.ModelCart>
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <h3>@ViewBag.OrderTitle</h3>
+    <div class="idea">@ViewBag.StatusMessage</div>
+
+    <div id="result"></div>
+
+    @if (Model != null)
+    {
+        @if (Model.Count() > 0)
+        {
+            <div align="center" class="hide_print">
+                <button onclick="location.href='@Url.Action("StartNewOrder", "Order")'" class="SimpleImportant">@ViewBag.StartNewOrder</button>
+
+                <button onclick="location.href='@Url.Action("Download", "Order")'" class="SimpleImportant">@ViewBag.Download</button>
+
+                <input type="button" value="@ViewBag.Print" onclick="window.print();" class="SimpleImportant" />
+            </div>
+            <br />
+            <table>
+                <tr><td class="field_caption">@ViewBag.CustomerNameLabel</td><td>@ViewBag.CustomerName</td></tr>
+
+                <tr><td class="field_caption">@ViewBag.DateOrderLabel</td><td>@ViewBag.DateOrder</td></tr>
+
+                <tr><td class="field_caption">@ViewBag.ProductsCountLabel</td><td>@ViewBag.ProductsCount</td></tr>
+
+                <tr><td class="field_caption">@ViewBag.LoyaltyPointsLabel</td><td>@ViewBag.LoyaltyPoints</td></tr>
+            </table>
+            @Html.Raw(@ViewBag.OrderProducts)
+        }
+        else
+        {
+            <div class="text-center">@ViewBag.NotFound</div>
+        }
+    }
+    else
+    {
+        <div class="text-center">@ViewBag.NotFound</div>
+    }
+</div>

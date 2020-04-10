@@ -1,0 +1,159 @@
+﻿@model IEnumerable<Bondora.Api.Models.ModelCart>
+
+<script type="text/javascript">
+    function SubmitOrder() {
+        var customerId = document.getElementById('customerId').value;
+        var token = document.getElementById('token').value;
+                
+        var jsondata = { 'token': token, 'customerId': customerId };
+        //alert(jsondata);
+        var options = {};
+        options.url = "/home/ApiCart/";
+        options.type = "POST";
+        options.contentType = "application/json; charset=utf-8";
+        options.dataType = "json";
+        options.data = JSON.stringify(jsondata);
+        options.crossDomain = false;
+        options.beforeSend = function() {
+            document.getElementById('preload').style.display = '';
+        };
+        options.success = function (resp) {
+            data = JSON.stringify(resp);
+            var root_obj = $.parseJSON(data);
+            if (typeof root_obj == 'undefined' || root_obj == null) {
+                $("#result").html('Error parse json output.');
+            } else {
+                var success = root_obj.success;
+                var message = root_obj.message;
+                var countOrdered = root_obj.countOrdered;
+                                
+                if (success == true) {
+                    window.location.href = '/Order/Order/?token=' + token;
+                }
+
+                $("#result").html(message);
+                document.getElementById('preload').style.display = 'none';
+            }
+        };
+        options.error = function () {
+            $("#result").html('@ViewBag.ErrorApiCall');
+            document.getElementById('preload').style.display = 'none';
+        };
+        $.ajax(options);
+    }
+
+    function DeleteItem(id) {
+        var token = document.getElementById('token').value;
+        //alert(id + '; ' + token);
+
+        var jsondata = { };
+        var options = {};
+        options.url = "/home/ApiCart/?id=" + id + "&token=" + token;
+        options.type = "DELETE";
+        options.contentType = "application/json; charset=utf-8";
+        options.dataType = "json";
+        options.data = JSON.stringify(jsondata);
+        options.crossDomain = false;
+        options.beforeSend = function () {
+            document.getElementById('preload').style.display = '';
+        };
+        options.success = function (resp) {
+            data = JSON.stringify(resp);
+            var root_obj = $.parseJSON(data);
+            if (typeof root_obj == 'undefined' || root_obj == null) {
+                $("#result").html('Error parse json output.');
+            } else {
+                var success = root_obj.success;
+                var message = root_obj.message;
+                var countOrdered = root_obj.countOrdered;
+
+                //alert(json.msg);
+                if (success) {
+                    window.location.href = '/Cart/Cart/';
+                }
+
+                $("#result").html(json.msg);
+                document.getElementById('preload').style.display = 'none';
+            }
+        };
+        options.error = function () {
+            $("#result").html('@ViewBag.ErrorApiCall');
+            document.getElementById('preload').style.display = 'none';
+        };
+        $.ajax(options);
+    }
+</script>    
+
+<div class="container">
+    <div style="width:500px; text-align:center;">
+        <h2>@ViewData["Title"]</h2>
+        <h3>@ViewBag.CartTitle</h3>
+        <div class="idea" id="result">@ViewBag.StatusMessage</div>
+        
+        <input type="hidden" id="customerId" value="@ViewBag.CustomerId" />
+        <input type="hidden" id="token" value="@ViewBag.Token" />
+
+        @if (Model != null)
+        {
+            @if (Model.Count() > 0)
+            {
+                <div align="center">
+                    <table>
+                        <tr>
+                            <td><a href="/Home/Index/" onclick=""><img src="~/images/back_left.gif" border="0" width="75" title="@ViewBag.Back" /></a></td>
+                            <td width="65"><img id="preload" src="/images/loading.gif" width="50" style="display:none;" /></td>
+                            <td><a href="javascript:void(0)" onclick="SubmitOrder()"><img src="~/images/submit_order.png" border="0" width="75" title="@ViewBag.SubmitOrder" /></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <table align="center">
+                    <thead>
+                        <tr>
+                            <th>@ViewBag.Name</th>
+                            <th>@ViewBag.Type</th>
+                            <th>@ViewBag.Days</th>
+                            <th>@ViewBag.Price</th>
+                            <th>@ViewBag.Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                            <tr onmouseover="bgColor='#ffffcc'" onmouseout="bgColor='#FFFFFF'">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TypeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Days)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                    @Html.DisplayFor(modelItem => item.PriceCur)
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" onclick="DeleteItem('@item.InventoryId')"><img src="~/images/recycle_bin.png" border="0" width="30" title="@ViewBag.Delete" /></a>
+                                </td>
+                            </tr>
+                        }
+                        <tr><td colspan="2"></td><td class='price'>@ViewBag.TotalLabel</td><td class='price'>@ViewBag.Total</td></tr>
+                    </tbody>
+                </table>
+                <br />
+            }
+            else
+            {
+                <div class="text-center">@ViewBag.NotFound</div>
+                <br /><div align="center"><a href="/Home/Index/" onclick=""><img src="~/images/back_left.gif" border="0" width="75" title="@ViewBag.Back" /></a></div>
+            }
+        }
+        else
+        {
+            <div class="text-center">@ViewBag.NotFound</div>
+            <br /><div align="center"><a href="/Home/Index/" onclick=""><img src="~/images/back_left.gif" border="0" width="75" title="@ViewBag.Back" /></a></div>
+        }
+    </div>
+</div>

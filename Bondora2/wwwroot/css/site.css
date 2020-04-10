@@ -1,0 +1,108 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.container  {
+    align-self:center;
+    width:600px;
+}
+
+a:link, a:visited {
+    color: #0098c6;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: #0098c6;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:active {
+    color: #0098c6;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+.idea {
+    height: 25px;
+    color: #FF0000;
+    font-weight: bold;
+}
+
+
+.cart {
+    padding: 0px;
+    margin: 0px;
+}
+
+td {
+    padding: 5px; text-align:left;
+}
+
+th {
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Verdana, Tahoma;
+    font-size: 14px;
+    padding: 5px 5px 5px 5px;
+    color: #636363;
+    background-color: #A7EEFF;
+}
+
+.clear {
+    clear:both;
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+.cart_total {
+    font-size:34px;
+    color: #FF0000;
+    font-weight: bold;
+}
+
+
+.price {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.total {
+    color: #FF0000;
+    font-weight: bold;
+    background-color: #ffff00;
+}
+
+.field_caption {
+    font-weight: bold;
+}
+
+.header_caption {
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Verdana, Tahoma;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media print {
+    .hide_print {
+        display: none;
+    }
+}
+
+
