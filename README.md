@@ -27,7 +27,14 @@ submit the order,
 print the order, 
 download order as the text file
 
+
+Please setup the Connection Setting in "appsettings.json"
+need to define SQL database with login and password.
+        "DefaultConnection": "Data Source=localhost;Initial Catalog=DB;user id=username;password=password;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True"
+
 to run this application, you has to open folder /sql/ and run that script in your SQL client.
 
-also setup the Connection Setting in appsettings.json
+it will fill SQL database with tables and records.
+
+
 
